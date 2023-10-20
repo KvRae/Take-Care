@@ -1,7 +1,13 @@
 ﻿# Take Care
     
-![GitHub repo size](https://img.shields.io/github/repo-size/Team-Take-Care/TakeCare?style=for-the-badge)
-![GitHub contributors](https://img.shields.io/github/contributors/Team-Take-Care/TakeCare?style=for-the-badge)
+![GitHub repo size](https://img.shields.io/github/repo-size/KvRae/Take-Care?style=for-the-badge)
+![GitHub contributors](https://img.shields.io/github/contributors/KvRae/Take-Care?style=for-the-badge)
+![GitHub stars](https://img.shields.io/github/stars/KvRae/Take-Care?style=for-the-badge)
+![GitHub forks](https://img.shields.io/github/forks/KvRae/Take-Care?style=for-the-badge)
+![GitHub issues](https://img.shields.io/github/issues/KvRae/Take-Care?style=for-the-badge)
+![GitHub license](https://img.shields.io/github/license/KvRae/Take-Care?style=for-the-badge)
+![GitHub last commit](https://img.shields.io/github/last-commit/KvRae/Take-Care?style=for-the-badge)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/KvRae/Take-Care?style=for-the-badge)
 ![Unity Version](https://img.shields.io/badge/Unity-2022.0.9f1-blue?style=for-the-badge&logo=unity)
 
 
@@ -26,7 +32,16 @@ detecting hazardous situations,
 and providing personalized notifications.
 
 ## Key Features
-
+### Physical Activity Tracking
+TakeCare tracks your steps and calories burned throughout the day.
+### Heart Rate Monitoring
+TakeCare monitors your heart rate and notifies you if it is too high or too low.
+### PHYSICAL CONDITION DETECTION
+TakeCare detects if you are in a hazardous situation and notifies you.
+### DRIVING MONITORING
+TakeCare detects if you are driving and notifies you.
+### HEALTH REMINDERS
+TakeCare reminds you to drink water, take a break, and take your medicine.
 
 ## Usage
 
@@ -69,4 +84,6 @@ Any contributions you make are **greatly appreciated**.
 Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Contact
+* [KvRae](https://github.com/KvRae) - Team Lead & Developer
+
 
