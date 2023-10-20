@@ -17,7 +17,7 @@
     4. [DRIVING MONITORING](#driving-monitoring)
     5. [HEALTH REMINDERS](#health-reminders)
 3. [Usage](#usage)
-4. Contributors
+4. [Contributors](#contributors)
 5. [Contributing](#contributing)
 6. [License](#license)
 7. [Contact](#contact)
