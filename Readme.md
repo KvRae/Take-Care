@@ -81,6 +81,6 @@ Any contributions you make are **greatly appreciated**.
 Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Contact
-* [KvRae](https://github.com/KvRae) - Team Lead & Developer
+* [KvRae](https://github.com/KvRae) - Developer
 
 
