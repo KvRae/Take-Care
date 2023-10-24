@@ -1,32 +1,60 @@
 using System;
 using Unity.Notifications.Android;
 using UnityEngine;
+using UnityEngine.Android;
 
-public class MobileNotificationManager : MonoBehaviour
+namespace KvRaeScripts
 {
-    
-    private void Start()
+    public class MobileNotificationManager : MonoBehaviour
     {
-        // Create channel to send notifications messages
-        var channel = new AndroidNotificationChannel()
+        public void RequestAuthorisation()
         {
-            Id = "channel_id",
-            Name = "Default Channel",
-            Importance = Importance.Default,
-            Description = "Generic notifications",
-        };
+            if (!Permission.HasUserAuthorizedPermission("android.permission.POST_NOTIFICATION"))
+            {
+                Permission.RequestUserPermission("android.permission.POST_NOTIFICATION");
+            }
         
-        // Register the channel
-        AndroidNotificationCenter.RegisterNotificationChannel(channel);
-        
-        // Send notification to user
-        var notification = new AndroidNotification
-        {
-            Title = "Your Title",
-            Text = "Your Text",
-            FireTime = DateTime.Now.AddSeconds(10)
-        };
+        }
 
-        AndroidNotificationCenter.SendNotification(notification, "channel_id");
+
+    
+        public void SendNotification()
+        {
+            try {
+                var channel = new AndroidNotificationChannel()
+                {
+                    Id = "channel_id",
+                    Name = "Default Channel",
+                    Importance = Importance.High,
+                    Description = "Generic notifications"
+                };
+                AndroidNotificationCenter.RegisterNotificationChannel(channel);
+                var notification = new AndroidNotification
+                {
+                    Title = "Notification Title",
+                    Text = "Notification Text",
+                    SmallIcon = "default",
+                    LargeIcon = "default",
+                    FireTime = DateTime.Now.AddSeconds(15)
+                };
+                AndroidNotificationCenter.SendNotification(notification, channel.Id);
+                Debug.Log("Notification sent successfully !");
+        
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+            }
+        
+        
+        }
+
+        private void Start()
+        {
+            RequestAuthorisation();
+            SendNotification();
+        
+        }
+
     }
 }
