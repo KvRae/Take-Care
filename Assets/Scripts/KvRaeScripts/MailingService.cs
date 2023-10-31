@@ -44,6 +44,6 @@ public class MailingService : MonoBehaviour
 
     private void Start()
     {
-        //SendEmail(recipient : "karamelmannai@gmail.com", subject:"False Alarm", body:"This is a false alarm. I am safe.");
+        SendEmail(recipient : "karamelmannai@gmail.com", subject:"False Alarm", body:"This is a false alarm. I am safe.");
     }
 }
