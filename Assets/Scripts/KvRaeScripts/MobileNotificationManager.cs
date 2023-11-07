@@ -1,5 +1,6 @@
 using System;
 using Unity.Notifications.Android;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Android;
 
@@ -18,7 +19,7 @@ namespace KvRaeScripts
 
 
     
-        public void SendNotification()
+        public void SendNotification(string title, string description)
         {
             try {
                 var channel = new AndroidNotificationChannel()
@@ -31,8 +32,8 @@ namespace KvRaeScripts
                 AndroidNotificationCenter.RegisterNotificationChannel(channel);
                 var notification = new AndroidNotification
                 {
-                    Title = "Notification Title",
-                    Text = "Notification Text",
+                    Title = title,
+                    Text = description,
                     SmallIcon = "default",
                     LargeIcon = "default",
                     FireTime = DateTime.Now.AddSeconds(15)
@@ -52,7 +53,7 @@ namespace KvRaeScripts
         private void Start()
         {
             RequestAuthorisation();
-            SendNotification();
+            SendNotification("welcome to take care", "this is a welcome notification");
         
         }
 

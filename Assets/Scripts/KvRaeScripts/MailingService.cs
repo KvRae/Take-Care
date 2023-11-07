@@ -9,7 +9,7 @@ public class MailingService : MonoBehaviour
     // create a new MailMessage
     private readonly MailMessage _mail = new();
 
-    private void SendEmail(string recipient, string subject, string body)
+    public void SendEmail(string recipient, string subject, string body)
     {
         try
         {
