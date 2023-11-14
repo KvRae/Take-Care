@@ -1,7 +1,6 @@
-using System;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UIHandler : MonoBehaviour
 {
@@ -10,11 +9,8 @@ public class UIHandler : MonoBehaviour
     public Button notificationServiceButton;
     public TextMeshProUGUI notificationServiceText;
     bool isEmailServiceActive;
-    
     bool isNotificationServiceActive;
-    
-    
-    
+
     private void Awake()
     {
         // Check if MailService is set in PlayerPrefs
@@ -28,11 +24,11 @@ public class UIHandler : MonoBehaviour
         isEmailServiceActive = PlayerPrefsManager.GetMailServiceActivation();
         if (isEmailServiceActive)
         {
-            notificationServiceText.text = "Service enabled";
+            emailServiceText.text = "Service enabled";
         }
         else
         {
-            notificationServiceText.text = "Service disabled";
+            emailServiceText.text = "Service disabled";
         }
 
         // Check if NotificationService is set in PlayerPrefs
@@ -41,7 +37,7 @@ public class UIHandler : MonoBehaviour
             // Set initial value if not set
             PlayerPrefsManager.SetNotificationServiceActivation(true);
         }
-        
+
         isNotificationServiceActive = PlayerPrefsManager.GetNotificationServiceActivation();
         if (isNotificationServiceActive)
         {
@@ -51,10 +47,8 @@ public class UIHandler : MonoBehaviour
         {
             notificationServiceText.text = "Service disabled";
         }
-        
-        
     }
-    
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -66,7 +60,7 @@ public class UIHandler : MonoBehaviour
         {
             emailServiceButton.onClick.AddListener(onChangeEmailService);
         }
-        
+
         if (notificationServiceButton == null)
         {
             Debug.LogError("Notification service button not set");
@@ -80,34 +74,27 @@ public class UIHandler : MonoBehaviour
     void Update()
     {
         // Change the text of the button based on the value of the MailService
-        if (isEmailServiceActive)
+        if (emailServiceText != null && isEmailServiceActive != PlayerPrefsManager.GetMailServiceActivation())
         {
-            emailServiceText.text = "Service enabled";
+            isEmailServiceActive = !isEmailServiceActive;
+            emailServiceText.text = isEmailServiceActive ? "Service enabled" : "Service disabled";
         }
-        else
-        {
-            emailServiceText.text = "Service disabled";
-        }
-        
+
         // Change the text of the button based on the value of the NotificationService
-        if (isNotificationServiceActive)
+        if (notificationServiceText != null && isNotificationServiceActive != PlayerPrefsManager.GetNotificationServiceActivation())
         {
-            notificationServiceText.text = "Service enabled";
+            isNotificationServiceActive = !isNotificationServiceActive;
+            notificationServiceText.text = isNotificationServiceActive ? "Service enabled" : "Service disabled";
         }
-        else
-        {
-            notificationServiceText.text = "Service disabled";
-        }
-       
     }
-    
+
     public void onChangeEmailService()
     {
         Debug.Log("Email service button clicked");
         isEmailServiceActive = !isEmailServiceActive;
         PlayerPrefsManager.SetMailServiceActivation(isEmailServiceActive);
     }
-    
+
     public void onChangeNotificationService()
     {
         Debug.Log("Notification service button clicked");
