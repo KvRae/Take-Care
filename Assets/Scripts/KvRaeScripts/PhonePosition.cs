@@ -39,7 +39,7 @@ public class PhonePosition : MonoBehaviour
         Input.gyro.enabled = true;
         _position = transform.position;
         activityTracker.text = "You are all good "; 
-        activityImage.sprite = Resources.Load<Sprite>("UI/Icons/ok");
+        //activityImage.sprite = Resources.Load<Sprite>("UI/Icons/ok");
     }
 
     // Update is called once per frame
@@ -81,6 +81,7 @@ public class PhonePosition : MonoBehaviour
             // Trigger your alert or perform any action here
             
             _mobileNotificationManager.SendNotification("Fall detected", "A fall was detected.");
+            activityTracker.text = "Fall detected !";
             _mailingService.SendEmail(recipient : "karamelmannai@gmail.com", subject:"Fall detected", body:"A fall was detected.");
             _position = currentPosition;
         }
