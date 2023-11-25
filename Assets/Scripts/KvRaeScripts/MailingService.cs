@@ -9,7 +9,7 @@ public class MailingService : MonoBehaviour
     // create a new MailMessage
     private readonly MailMessage _mail = new();
 
-    public void SendEmail(string recipient, string subject, string body)
+    public void SendEmail(string recipient, string subject, string body, string cords)
     {
         try
         {
@@ -17,7 +17,7 @@ public class MailingService : MonoBehaviour
             _mail.From = new MailAddress("karam.mannai@esprit.tn");
             _mail.To.Add(recipient);
             _mail.Subject = subject;
-            _mail.Body = body;
+            _mail.Body = body + cords;
         
             // smtp setup
             SmtpClient smtpServer = new SmtpClient("smtp.gmail.com");
@@ -40,10 +40,5 @@ public class MailingService : MonoBehaviour
             // error log
             Debug.Log(e);
         }
-    }
-
-    private void Start()
-    {
-        SendEmail(recipient : "karamelmannai@gmail.com", subject:"False Alarm", body:"This is a false alarm. I am safe.");
     }
 }
