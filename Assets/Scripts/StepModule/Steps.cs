@@ -7,7 +7,6 @@ using UnityEngine.Android;
 using UnityEngine.InputSystem;
 
 using UnityEngine.InputSystem.Android;
-
 using UnityEngine.UI;
 
 public class Steps : MonoBehaviour
@@ -44,7 +43,8 @@ public class Steps : MonoBehaviour
     private float timeCount = 0.0f;
     private float walkingTime = 0.0f;
     private bool isWalking = false;
-
+    private float caloriesCount = 0.0f;
+    private float distanceCount = 0.0f;
     // Added: PlayerPrefs keys
     private string stepCountKey = "StepCount";
     private string timeCountKey = "TimeCount";
@@ -52,9 +52,23 @@ public class Steps : MonoBehaviour
     private string caloriesGoalKey = "CaloriesGoal";
     private string distanceGoalKey = "DistanceGoal";
     private string TimerGoalKey = "TimerGoal";
+        private string walkingTimeKey = "walkingTime";
+
 
     void Start()
-    {
+    {/*
+        var channel = new AndroidNotificationChannel()
+        {
+            Id = "channel_id",
+            Name = "Default Channel",
+            Importance = Importance.Default,
+            Description = "Generic notifications",
+        };
+        AndroidNotificationCenter.RegisterNotificationChannel(channel);
+
+
+*/
+
         // Load saved values from PlayerPrefs
         stepCount = PlayerPrefs.GetInt(stepCountKey, 0);
         timeCount = PlayerPrefs.GetFloat(timeCountKey, 0.0f);
@@ -62,6 +76,7 @@ public class Steps : MonoBehaviour
         caloriesGoal = PlayerPrefs.GetFloat(caloriesGoalKey, stepsGoal * 0.04f);
         distanceGoal = PlayerPrefs.GetFloat(distanceGoalKey, stepsGoal * 0.0762f);
         TimerGoal = PlayerPrefs.GetFloat(TimerGoalKey, stepsGoal * 1.66f);
+        walkingTime = PlayerPrefs.GetFloat(walkingTimeKey, 0f);
 
         btnClick.onClick.AddListener(GetInputOnClickHandler);
         btnClickCal.onClick.AddListener(GetInputOnClickHandlerCalories);
@@ -98,8 +113,8 @@ public class Steps : MonoBehaviour
 
         textMeshProComponent.text = stepCount.ToString();
 
-        float caloriesCount = stepCount * 0.04f;
-        float distanceCount = stepCount * 0.0762f;
+         caloriesCount = stepCount * 0.04f;
+         distanceCount = stepCount * 0.0762f;
 
         caloriesText.text = (int)Math.Floor(caloriesCount) + " Kcl";
         distanceText.text = (int)Math.Floor(distanceCount) + " metres";
@@ -111,6 +126,17 @@ public class Steps : MonoBehaviour
         percentage = stepCount / stepsGoal * 100;
 
         textMeshProComponent2.text = "Vous avez parcouru " + (int)Math.Floor(percentage) + "% de votre objectif";
+/*
+        if ((int)Math.Floor(percentage) == 50) {
+        var notification = new AndroidNotification();
+        notification.Title = "TakeCare";
+        notification.Text = "Vous êtes à la moitié de votre but.";
+        notification.FireTime = System.DateTime.Now;
+        AndroidNotificationCenter.SendNotification(notification, "channel_id");
+        }
+        if (stepCount == stepsGoal){
+            isStepCounting = false;
+        }*/
     }
 
     void ProgressChange(float stepCount, float stepsGoal)
@@ -135,11 +161,6 @@ public class Steps : MonoBehaviour
     {
         float amount = (walkingTime / TimerGoal);
         _timerbar.fillAmount = amount;
-
-        print("WALKTIME" + walkingTime);
-        print("TIMERGOAL" + TimerGoal);
-
-        print("AMOUNT" + amount);
     }
 
     // Coroutine to update the walking time
@@ -150,15 +171,15 @@ public class Steps : MonoBehaviour
             walkingTime += Time.deltaTime;
             TimeSpan timeSpan = TimeSpan.FromSeconds(walkingTime);
             timeCount = (float)timeSpan.TotalSeconds;
-            print(timeCount);
 
-            if (timeSpan.TotalSeconds >= 60)
+
+            if (timeCount >= 60)
             {
-                timeText.text = timeSpan.ToString(@"mm") + " min";
+                timeText.text = (int)Math.Floor(timeCount)/60 + " min";
             }
             else
             {
-                timeText.text = timeSpan.ToString(@"ss") + " sec";
+                timeText.text = (int)Math.Floor(timeCount) + " sec";
             }
 
             yield return null;
@@ -174,6 +195,8 @@ public class Steps : MonoBehaviour
         PlayerPrefs.SetFloat(caloriesGoalKey, caloriesGoal);
         PlayerPrefs.SetFloat(distanceGoalKey, distanceGoal);
         PlayerPrefs.SetFloat(TimerGoalKey, TimerGoal);
+        PlayerPrefs.SetFloat(walkingTimeKey,walkingTime);
+
         PlayerPrefs.Save();
     }
 
@@ -184,6 +207,11 @@ public class Steps : MonoBehaviour
         if (float.TryParse(inputSteps.text, out floatValue))
         {
             stepsGoal = floatValue;
+            stepCount =0;
+            caloriesCount = 0f;
+            distanceCount = 0f;
+            walkingTime = 0f;
+            TimerGoal = stepsGoal * 1.66f;
             caloriesGoal = stepsGoal * 0.04f;
             distanceGoal = stepsGoal * 0.0762f;
         }
@@ -202,6 +230,14 @@ public class Steps : MonoBehaviour
         if (float.TryParse(inputSteps.text, out floatValue))
         {
             caloriesGoal = floatValue;
+            stepsGoal = caloriesGoal / 0.04f;
+
+            stepCount =0;
+            caloriesCount = 0f;
+            distanceCount = 0f;
+            walkingTime = 0f;
+
+            TimerGoal = stepsGoal * 1.66f;
             stepsGoal = caloriesGoal / 0.04f;
             distanceGoal = stepsGoal * 0.0762f;
         }
@@ -222,6 +258,13 @@ public class Steps : MonoBehaviour
             distanceGoal = floatValue;
             caloriesGoal = stepsGoal * 0.04f;
             stepsGoal = distanceGoal / 0.0762f;
+
+            stepCount =0;
+            caloriesCount = 0f;
+            distanceCount = 0f;
+            walkingTime = 0f;
+            
+            TimerGoal = stepsGoal * 1.66f;
         }
         else
         {
