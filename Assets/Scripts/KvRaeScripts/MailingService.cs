@@ -4,10 +4,11 @@ using System.Net.Mail;
 
 using UnityEngine;
 
-public class MailingService : MonoBehaviour
+public class MailingService 
 {
     // create a new MailMessage
     private readonly MailMessage _mail = new();
+    
 
     public void SendEmail(string recipient, string subject, string body, string cords)
     {
@@ -17,7 +18,7 @@ public class MailingService : MonoBehaviour
             _mail.From = new MailAddress("karam.mannai@esprit.tn");
             _mail.To.Add(recipient);
             _mail.Subject = subject;
-            _mail.Body = body + cords;
+            if (cords == null) _mail.Body = body;else _mail.Body = body + cords;
         
             // smtp setup
             SmtpClient smtpServer = new SmtpClient("smtp.gmail.com");

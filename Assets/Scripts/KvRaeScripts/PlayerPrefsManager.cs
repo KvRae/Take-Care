@@ -8,6 +8,7 @@ public static class PlayerPrefsManager
     private const string MailServiceKey = "MailService";
     private const string NotificationServiceKey = "NotificationService";
     private const string EmailKey = "Email";
+    public static bool alarmSent = false;
 
     // Setters
     public static void SetMailServiceActivation(bool value)

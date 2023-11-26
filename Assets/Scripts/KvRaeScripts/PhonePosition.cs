@@ -37,6 +37,8 @@ public class PhonePosition : MonoBehaviour
 
     private void Awake()
     {
+        // Check if location services are enabled
+        GpsLocationInit();
         if (PlayerPrefs.HasKey("Email"))
         {
             recipient = PlayerPrefsManager.GetEmail();
@@ -56,10 +58,6 @@ public class PhonePosition : MonoBehaviour
 
     private void Start()
     {
-        
-        // Check if location services are enabled
-        GpsLocationInit();
-        
         if (!SystemInfo.supportsGyroscope)
         {
             Debug.LogError("Gyroscope is not supported on this device.");
@@ -76,6 +74,7 @@ public class PhonePosition : MonoBehaviour
         if (!SystemInfo.supportsGyroscope) return;
         _rotation = GyroToUnity(Input.gyro.attitude);
         _acceleration = Input.gyro.userAcceleration;
+        
         latitude = Input.location.lastData.latitude;
         longitude = Input.location.lastData.longitude;
         // Check for fall
@@ -92,20 +91,6 @@ public class PhonePosition : MonoBehaviour
     private void FixedUpdate()
     {
         currentPosition = _position;
-
-        var offset = Vector3.Distance(_position, currentPosition);
-
-        if (offset > positionOffsetThreshold && !isFalling)
-        {
-            isFalling = true;
-            activityTracker.text = "Fall detected!";
-            activityImage.sprite = fallSprite; // Change the image on fall detection
-            falseAlarmButton.gameObject.SetActive(true);
-            falseAlarmText.gameObject.SetActive(true);
-            vibration();
-            SendNotification("Fall detected", "A fall was detected!");
-            SendEmail("Fall detected", "A fall was detected!");
-        }
     }
     
     private void CheckRotationSpeed()
@@ -119,10 +104,20 @@ public class PhonePosition : MonoBehaviour
                 isRotating = true;
                 activityTracker.text = "Fast rotation detected!";
                 activityImage.sprite = fallSprite; // Change the image on fast rotation
-                falseAlarmButton.gameObject.SetActive(true);
-                falseAlarmText.gameObject.SetActive(true);
-                SendNotification("Rotation detected", "Fast rotation detected!");
-                SendEmail("Rotation detected", "Fast rotation detected!");
+                if (PlayerPrefsManager.GetMailServiceActivation())
+                {
+                    
+                    falseAlarmButton.gameObject.SetActive(true);
+                    falseAlarmText.gameObject.SetActive(true);
+                }
+
+                if (PlayerPrefsManager.alarmSent == false)
+                {
+                    PlayerPrefsManager.alarmSent = true;
+                    SendNotification("Rotation detected", "Fast rotation detected!");
+                    SendEmail("Rotation detected", "Fast rotation detected!");
+                }
+                
                 // Add any other action you want to perform on fast rotation
             }
         }
@@ -139,11 +134,19 @@ public class PhonePosition : MonoBehaviour
             // Shock detected, perform your actions here
             activityTracker.text = "Shock detected!";
             activityImage.sprite = shockSprite; // Change the image on fast rotation
-            falseAlarmButton.gameObject.SetActive(true);
-            falseAlarmText.gameObject.SetActive(true);
+            if (PlayerPrefsManager.GetMailServiceActivation())
+            {
+                falseAlarmButton.gameObject.SetActive(true);
+                falseAlarmText.gameObject.SetActive(true);
+            }
+            
             vibration();
-            SendNotification("Shock detected", "Fast Shock detected!");
-            SendEmail("Shock detected", "Fast Shock detected!");
+            if (PlayerPrefsManager.alarmSent == false)
+            {
+                PlayerPrefsManager.alarmSent = true;
+                SendNotification("Shock detected", "Fast Shock detected!");
+                SendEmail("Shock detected", "Fast Shock detected!");
+            }
             lastDetectionTime = Time.time;
         }
     }
@@ -155,11 +158,21 @@ public class PhonePosition : MonoBehaviour
             isFalling = true;
             activityTracker.text = "Fall detected!";
             activityImage.sprite = fallSprite; // Change the image on fall detection
-            falseAlarmButton.gameObject.SetActive(true);
-            falseAlarmText.gameObject.SetActive(true);
+            if (PlayerPrefsManager.GetMailServiceActivation())
+            {
+                
+                falseAlarmButton.gameObject.SetActive(true);
+                falseAlarmText.gameObject.SetActive(true);
+            }
+            
             vibration();
-            SendEmail("I need your help", "I fell down, please help me!");
-            SendNotification("Fall detected", "Are you Ok? an fall was detected!");
+            if (PlayerPrefsManager.alarmSent == false)
+            {
+                PlayerPrefsManager.alarmSent = true;
+                SendEmail("I need your help", "I fell down, please help me!");
+                SendNotification("Fall detected", "Are you Ok? an fall was detected!");
+            }
+            
         }
     }
 
@@ -178,9 +191,15 @@ public class PhonePosition : MonoBehaviour
     
     private void SendEmail(string _subject, string _body)
     {
+        var url = "";
+        if (latitude != 0 && longitude != 0)
+        { 
+            url = "https://www.google.com/maps/search/?api=1&query=" + latitude + "," + longitude;
+        }
+        
+        
         if ( PlayerPrefsManager.GetMailServiceActivation())
         {
-            string url = "https://www.google.com/maps?q=" + latitude + "," + longitude;
             _mailingService.SendEmail(recipient: recipient, subject: _subject, body: _body, cords: url);
         }
         
@@ -221,10 +240,6 @@ public class PhonePosition : MonoBehaviour
             Debug.LogError("Unable to determine device location.");
             return;
         }
-
-        // Access the device's location
-
-        Debug.Log("Latitude: " + latitude + ", Longitude: " + longitude);
     }
 
     private void OnDestroy()

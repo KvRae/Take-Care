@@ -127,8 +127,7 @@ public class UIHandler : MonoBehaviour
 
     public void onFalseAlarm()
     {
-        _mailingService = new MailingService();
-        _mailingService.SendEmail(recipient : recipient, subject:"False Alarm", body:"This is a false alarm. I am safe.", cords:"");
+        PlayerPrefsManager.alarmSent = false;
         falseAlarmButton.gameObject.SetActive(false);
         falseAlarmText.gameObject.SetActive(false);
         fallText.text = "You are all good";
