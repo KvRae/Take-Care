@@ -4,5 +4,12 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
-  m_configObjects: {}
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/PhysicalCondition.unity
+    guid: 43ec8932e3fd0294081d1d0cc9d4aad8
+  m_configObjects:
+    com.unity.adaptiveperformance.google.android.provider_settings: {fileID: 11400000, guid: f9a52a58b61154141a9d355b4749dd55, type: 2}
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 51825eba75485f743a9f5dc958b1da26, type: 2}
+    com.unity.adaptiveperformance.samsung.android.provider_settings: {fileID: 11400000, guid: cf74dbed1c084ff498fafbf14d6e277e, type: 2}
+    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: ff52aac51a558f745af13ac1a672dd46, type: 2}

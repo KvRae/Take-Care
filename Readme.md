@@ -1,11 +1,12 @@
-﻿# Take Care
+<p align="center">
+  <img width="129" alt="Logo" src="https://github.com/KvRae/Take-Care/assets/58667227/9456fd8b-368f-44a9-9d07-2f2d8e4d5769">
+</p>
 
 ![Unity Version](https://img.shields.io/badge/Unity-2022.0.9f1-blue?style=for-the-badge&logo=unity)
 ![GitHub repo size](https://img.shields.io/github/repo-size/KvRae/Take-Care?style=for-the-badge)
 ![GitHub contributors](https://img.shields.io/github/contributors/KvRae/Take-Care?style=for-the-badge)
 ![GitHub last commit](https://img.shields.io/github/last-commit/KvRae/Take-Care?style=for-the-badge)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/KvRae/Take-Care?style=for-the-badge)
-
 
 
 ## Table of Contents
@@ -17,10 +18,11 @@
     4. [DRIVING MONITORING](#driving-monitoring)
     5. [HEALTH REMINDERS](#health-reminders)
 3. [Usage](#usage)
-4. [Contributing](#contributing)
-5. [License](#license)
-6. [Contact](#contact)
-7. [Acknowledgements](#acknowledgements)
+4. [Contributors](#contributors)
+5. [Contributing](#contributing)
+6. [License](#license)
+7. [Contact](#contact)
+8. [Acknowledgements](#acknowledgements)
 
 ## Introduction
 TakeCare is a versatile application that promotes
@@ -60,6 +62,16 @@ TakeCare reminds you to drink water, take a break, and take your medicine.
 2. Open the project in Unity
 3. Build the project
 4. Install the app on your phone
+
+
+## Contributors
+
+* [Khabthani]() - Module 1 : Physical Activity Tracking
+* [Amine]() - Module 2 : Heart Rate Monitoring
+* [KvRae]() -  Module 3 : Physical Condition Detection
+* [Fedi]() - Module 4 : Driving Monitoring
+* [Yassine]() - Module 5 : Health Reminders
+
 
 ## Contributing
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create.
