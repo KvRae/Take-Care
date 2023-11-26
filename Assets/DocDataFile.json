@@ -1,0 +1,28 @@
+{
+    "DoctorVisits": [
+        {
+            "Name": "tassine",
+            "DateAppointment": "11/1/2023",
+            "HH": "12",
+            "MM": "20",
+            "DropDown": "PM",
+            "Location": "mouroj"
+        },
+        {
+            "Name": "yass",
+            "DateAppointment": "11/24/2023",
+            "HH": "12",
+            "MM": "12",
+            "DropDown": "AM",
+            "Location": "12"
+        },
+        {
+            "Name": "zaza123",
+            "DateAppointment": "11/8/2023",
+            "HH": "12",
+            "MM": "10",
+            "DropDown": "AM",
+            "Location": "yassine123"
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+{
+    "Medications": [
+        {
+            "Name": "za",
+            "Dosage": "za",
+            "Frequency": "Hourly",
+            "Time": "11/1/2023 - 11/23/2023"
+        },
+        {
+            "Name": "za",
+            "Dosage": "za",
+            "Frequency": "Daily",
+            "Time": "11/10/2023 - 11/24/2023"
+        }
+    ]
+}
